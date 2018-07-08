@@ -66,14 +66,14 @@ public class EchoServerHandler extends Thread {
 				
 				frame = util.urlToMat(url);
 				im.showImage(frame);
-				if(faceDetection.getNFace(frame)>0) {  // »ç¶÷ÀÌ ÀÖÀ¸¸é ½ÇÇà
+				if(faceDetection.getNFace(frame)>0) {  // ì‚¬ëŒì´ ìˆìœ¼ë©´ ì‹¤í–‰
 					state = 1;
 					
 					faceDetection.saveFaces(frame, "C:\\imgTest"+id+"\\", fileNo);
 					sum = 0;
 					
-					for(int i = 1; i == faceNo; i++) {  // db¿¡ ÀÖ´Â ¾ó±¼ °³¼ö ¸¸Å­ µ¹¸².
-						if(i==faceNo) { // ¾ó±¼ÀÌ ¾øÀ» °æ¿ì........ Ãß°¡
+					for(int i = 1; i == faceNo; i++) {  // dbì— ìˆëŠ” ì–¼êµ´ ê°œìˆ˜ ë§Œí¼ ëŒë¦¼.
+						if(i==faceNo) { // ì–¼êµ´ì´ ì—†ì„ ê²½ìš° ì¶”ê°€
 							db.insertImg(id, fileNo, faceNo);
 							faceNo++;
 							db.retrieveImg();
@@ -81,8 +81,8 @@ public class EchoServerHandler extends Thread {
 						}
 						int ret = compareFeature("c:\\faceList\\" + i + ".jpg", "c:\\imgTest"+id+"\\cropFace"+fileNo+".jpg");
 						if(ret > 0) {
-							//¾ó±¼ÀÌ ¸ÂÀ» °æ¿ì
-							System.out.println(i+"¹øÂ° »ç¶÷ÀÓ");
+							//ì–¼êµ´ì´ ë§ì„ ê²½ìš°
+							System.out.println(i+"ë²ˆì§¸ ì‚¬ëŒ");
 							break;
 						} 
 					}
@@ -93,7 +93,7 @@ public class EchoServerHandler extends Thread {
 				
 				if(sum>=10)
 					state = 0;
-				System.out.println(id + "¹øÂ°ÀÇ state : " + state);
+				System.out.println(id + "ï¿½ï¿½Â°ï¿½ï¿½ state : " + state);
 				out = new PrintWriter(client.getOutputStream(), true);
 				out.print(state);
 				}

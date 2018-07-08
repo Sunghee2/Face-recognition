@@ -35,11 +35,11 @@ public class DBConnection{
 				Class.forName("oracle.jdbc.driver.OracleDriver");
 				conn = DriverManager.getConnection(url, user, pw);
 				
-				System.out.println("Database�� ����Ǿ����ϴ�.\n");
+				System.out.println("connect DB.\n");
 			} catch(ClassNotFoundException cnfe) {
-				System.out.println("DB ����̹� �ε� ���� :" + cnfe.toString());
+				System.out.println("fail DB driver loading :" + cnfe.toString());
 			} catch(SQLException sqle) {
-				System.out.println("DB ���ӽ��� : " + sqle.toString());
+				System.out.println("DB 접속 실패 : " + sqle.toString());
 			} catch(Exception e) {
 				System.out.println("unknown error");
 				e.printStackTrace();
@@ -69,7 +69,7 @@ public class DBConnection{
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch(FileNotFoundException e) {
-				System.out.println("���� x");
+				System.out.println("file X");
 				e.printStackTrace();
 			} catch(IOException e) {
 				e.printStackTrace();
