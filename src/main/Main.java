@@ -33,152 +33,6 @@ import utils.ImShow;
 import utils.Utils;
 
 public class Main {
-//	public static void main(String[] args) throws Exception {
-//		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-//		
-//		String[] dlink = {"http://172.30.1.60/image.jpg", "http://172.30.1.19/image.jpg"};
-//		
-//		try {
-//			ServerSocket server = new ServerSocket(1234);
-//			int id = 0;
-//			
-//			while(true) {
-//				Socket client = server.accept();
-//				System.out.println("�겢�씪�씠�뼵�듃 �젒�냽 "+id);
-//				Thread clientThread = new Thread(new EchoServerHandler(client, id, dlink[id]));
-//				clientThread.start();
-//				id++;
-//			}
-//		} catch(Exception e) {
-//			e.printStackTrace();
-//		}
-		
-//		DBConnection db = new DBConnection();
-//		db.insertImg(0, 1, 1);
-//		db.insertImg(0, 2, 2);
-//		db.insertImg(0, 3, 3);
-//		db.retrieveImg();
-//		
-		
-//		
-//		int state = 0;
-//		int sum =0;
-//		int fileNo=0;
-//		int faceNo = 4;
-//		int id = 0;
-//		int sum2 = 0;
-//		
-//		FaceDetection faceDetection = new FaceDetection();
-//		ImShow im = new ImShow("Video Preview");
-//		Utils util = new Utils();
-//		
-//		VideoCapture vcam = new VideoCapture(0);
-//		Mat frame = new Mat();
-//		DBConnection db = new DBConnection();
-//		
-//		im.Window.setResizable(true);
-//		im.Window.setDefaultCloseOperation(3);
-//		
-//		while(vcam.isOpened()) {
-//			vcam.read(frame);
-//			im.showImage(frame);
-//			if(faceDetection.getNFace(frame)>0) {  // �궗�엺�씠 �엳�쑝硫� �떎�뻾
-//				state = 1;
-//				
-//				faceDetection.saveFaces(frame, "C:\\imgTest"+id+"\\", fileNo);
-//				sum = 0;
-//				
-//				outerloop:
-//					while(true) {
-//						for(int i = 1; i <= faceNo; i++) {  // db�뿉 �엳�뒗 �뼹援� 媛쒖닔 留뚰겮 �룎由�.
-//							if(i==faceNo) { // �뼹援댁씠 �뾾�쓣 寃쎌슦........ 異붽�
-//								sum2++;
-//								if (sum2 > 50 ) {
-//									sum = 0;
-//									db.insertImg(id, fileNo, faceNo);
-//									faceNo++;
-//									db.retrieveImg();
-//								}
-//							}
-//							int ret = compareFeature("c:\\faceList\\" + i + ".jpg", "c:\\imgTest"+id+"\\cropFace"+fileNo+".jpg");
-//							if(ret > 0) {
-//								//�뼹援댁씠 留욎쓣 寃쎌슦
-//								sum2 = 0;
-//								System.out.println(i+"踰덉㎏ �궗�엺�엫");
-//								break outerloop;
-//							} 
-//						}
-//					}
-//
-//		}
-//		fileNo++;
-//	}
-//		
-//		
-//		
-//}
-//	public static int compareFeature(String filename1, String filename2) {
-//		int retVal = 0;
-//		long startTime = System.currentTimeMillis();
-//		
-//		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-//		
-//		// Load images to compare
-//		Mat img1 = Imgcodecs.imread(filename1, Imgcodecs.CV_LOAD_IMAGE_COLOR);
-//		Mat img2 = Imgcodecs.imread(filename2, Imgcodecs.CV_LOAD_IMAGE_COLOR);
-//
-//		// Declare key point of images
-//		MatOfKeyPoint keypoints1 = new MatOfKeyPoint();
-//		MatOfKeyPoint keypoints2 = new MatOfKeyPoint();
-//		Mat descriptors1 = new Mat();
-//		Mat descriptors2 = new Mat();
-//
-//		// Definition of ORB key point detector and descriptor extractors
-//		FeatureDetector detector = FeatureDetector.create(FeatureDetector.ORB); 
-//		DescriptorExtractor extractor = DescriptorExtractor.create(DescriptorExtractor.ORB);
-//
-//		// Detect key points
-//		detector.detect(img1, keypoints1);
-//		detector.detect(img2, keypoints2);
-//		
-//		// Extract descriptors
-//		extractor.compute(img1, keypoints1, descriptors1);
-//		extractor.compute(img2, keypoints2, descriptors2);
-//
-//		// Definition of descriptor matcher
-//		DescriptorMatcher matcher = DescriptorMatcher.create(DescriptorMatcher.BRUTEFORCE_HAMMING);
-//
-//		// Match points of two images
-//		MatOfDMatch matches = new MatOfDMatch();
-////		System.out.println("Type of Image1= " + descriptors1.type() + ", Type of Image2= " + descriptors2.type());
-////		System.out.println("Cols of Image1= " + descriptors1.cols() + ", Cols of Image2= " + descriptors2.cols());
-//		
-//		// Avoid to assertion failed
-//		// Assertion failed (type == src2.type() && src1.cols == src2.cols && (type == CV_32F || type == CV_8U)
-//		if (descriptors2.cols() == descriptors1.cols()) {
-//			matcher.match(descriptors1, descriptors2 ,matches);
-//	
-//			// Check matches of key points
-//			DMatch[] match = matches.toArray();
-//			double max_dist = 0; double min_dist = 100;
-//			
-//			for (int i = 0; i < descriptors1.rows(); i++) { 
-//				double dist = match[i].distance;
-//			    if( dist < min_dist ) min_dist = dist;
-//			    if( dist > max_dist ) max_dist = dist;
-//			}
-//			
-//		    // Extract good images (distances are under 10)
-//			for (int i = 0; i < descriptors1.rows(); i++) {
-//				if (match[i].distance <= 23) {
-//					retVal++;
-//				}
-//			}
-//		}
-//		
-//		return retVal;
-//	}
-
 	private int PORT = 7777;
 	private ServerSocket server;
 	private BManager bMan = new BManager();
@@ -288,22 +142,17 @@ public class Main {
 
 						frame = util.urlToMat(url);
 						im.showImage(frame);
-						//String inputLine = null;
-						//inputLine = in.readLine();
-						//System.out.println("占쎄깻占쎌뵬占쎌뵠占쎈섧占쎈뱜嚥∽옙 �겫占쏙옙苑� 獄쏆룇占� �눧紐꾩쁽占쎈였:" + inputLine);
-						
+
 						if(faceDetection.getNFace(frame)>0) {
 							state = 1;
 							faceDetection.saveFaces(frame);
 							sum=0;
 							if (ret > 0 && dicaFlag == false) {
-								System.out.println("占쎈탵燁삳똾遊썹뵳�딆궎 占쎌뿯占쎈빍占쎈뼄.");
 								writer.println("100");
 								dicaFlag = true;
 							} else if(ret == 0){
 								dicaFlag=false;
 								if (ret1 > 0 && doheeFlag == false) {
-									System.out.println("繹먲옙占쎈즲占쎌뵕 占쎌뿯占쎈빍占쎈뼄.");
 									writer.println("101");
 									doheeFlag = true;
 								}else if(ret1 == 0){
@@ -322,15 +171,12 @@ public class Main {
 						
 						
 						data = reader.readLine();
-						System.out.println("獄쏆룇占� 占쎈쑓占쎌뵠占쎄숲 = "+data);
 						if(data.equals("do")){
 							data = reader.readLine();	
 							if (0 < Integer.parseInt(data) && Integer.parseInt(data) < 4) {
 								doheeVideoNum = Integer.parseInt(data);
 				
-								System.out.println("癰귣�沅� 占쎈쑓占쎌뵠占쎄숲 = 10");
 								bMan.sendToAll(10);
-								System.out.println("繹먲옙占쎈즲占쎌뵕占쎌벥 �뜮袁⑤탵占쎌궎 占쎄퐜甕곌쑬�뮉 : " + doheeVideoNum);
 								writer.println(doheeVideoNum);
 								bMan.sendToAll(doheeVideoNum);
 								
@@ -338,26 +184,21 @@ public class Main {
 							data = reader.readLine();
 							if (Integer.parseInt(data) >= 4) {
 								doheeVideoPosition = Integer.parseInt(data);
-								System.out.println("繹먲옙占쎈즲占쎌뵕占쎌벥 �뜮袁⑤탵占쎌궎 占쎈뻻揶쏄쑴占� : " + doheeVideoPosition);
 //								writer.println(doheeVideoPosition);
 								bMan.sendToAll(doheeVideoPosition);
 							}
 						} else if (data.equals("11")) {
 							if (0 < Integer.parseInt(data) && Integer.parseInt(data) < 4) {
 								dicaVideoNum = Integer.parseInt(data);
-								System.out.println("占쎈탵燁삳똾遊썹뵳�딆궎占쎌벥 �뜮袁⑤탵占쎌궎 占쎄퐜甕곌쑬�뮉 : " + dicaVideoNum);
 								writer.println(doheeVideoPosition);
 							}
 							if (Integer.parseInt(data) >= 4) {
 								dicaVideoPosition = Integer.parseInt(data);
-								System.out.println("占쎈탵燁삳똾遊썹뵳�딆궎占쎌벥 �뜮袁⑤탵占쎌궎 占쎈뻻揶쏄쑴占� : " + dicaVideoNum);
 								writer.println(doheeVideoPosition);
 							}
 						}
 						
 						
-						//if (inputLine.equals("quit")) //筌랃옙1占쎈튋 獄쏆룇占� 揶쏅�れ뵠 quit 占쎌뵬野껋럩�뒭 �넫�굝利�
-						//break;
 					}
 					vcam.release();
 					writer.close();
